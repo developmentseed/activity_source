@@ -1,0 +1,3 @@
+<?php
+
+include_once('activity_source.features.inc');

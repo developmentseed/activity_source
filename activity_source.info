@@ -1,0 +1,6 @@
+core = "6.x"
+dependencies[] = "views_rss"
+features[views][] = "activity_feed"
+name = "activity_source"
+package = "Features"
+project = "activity_source"
