@@ -268,7 +268,7 @@ function _activity_source_views_default_views() {
       'label' => 'Full URL to node',
       'alter' => array(
         'alter_text' => 1,
-        'text' => '[site_info_1]/[nid]',
+        'text' => '[site_info_1]/node/[nid]',
         'make_link' => 0,
         'path' => '',
         'link_class' => '',
@@ -525,6 +525,19 @@ function _activity_source_views_default_views() {
   $handler->override_option('displays', array());
   $handler->override_option('sitename_title', 1);
   $handler = $view->new_display('feed', 'Updated posts', 'feed_2');
+  $handler->override_option('relationships', array(
+    'uid' => array(
+      'label' => 'user',
+      'required' => 1,
+      'id' => 'uid',
+      'table' => 'node_revisions',
+      'field' => 'uid',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
   $handler->override_option('fields', array(
     'authname' => array(
       'label' => 'OpenID Identifier',
@@ -646,7 +659,10 @@ function _activity_source_views_default_views() {
       'id' => 'uid',
       'table' => 'users',
       'field' => 'uid',
-      'relationship' => 'none',
+      'relationship' => 'uid',
+      'override' => array(
+        'button' => 'Use default',
+      ),
     ),
     'nothing_2' => array(
       'label' => 'Linked site',
@@ -707,9 +723,9 @@ function _activity_source_views_default_views() {
       'table' => 'users',
       'field' => 'name',
       'override' => array(
-        'button' => 'Override',
+        'button' => 'Use default',
       ),
-      'relationship' => 'none',
+      'relationship' => 'uid',
     ),
     'nothing_4' => array(
       'label' => 'Linked user name',
@@ -776,7 +792,7 @@ function _activity_source_views_default_views() {
       'label' => 'Full URL to node',
       'alter' => array(
         'alter_text' => 1,
-        'text' => '[site_info_1]/[nid]',
+        'text' => '[site_info_1]/node/[nid]',
         'make_link' => 0,
         'path' => '',
         'link_class' => '',
@@ -801,7 +817,7 @@ function _activity_source_views_default_views() {
       'table' => 'node',
       'field' => 'nid',
       'override' => array(
-        'button' => 'Override',
+        'button' => 'Use default',
       ),
       'relationship' => 'none',
     ),
@@ -1303,7 +1319,7 @@ function _activity_source_views_default_views() {
       'label' => 'Full URL to node',
       'alter' => array(
         'alter_text' => 1,
-        'text' => '[site_info_1]/[nid]',
+        'text' => '[site_info_1]/node/[nid]',
         'make_link' => 0,
         'path' => '',
         'link_class' => '',
@@ -1328,7 +1344,7 @@ function _activity_source_views_default_views() {
       'table' => 'node',
       'field' => 'nid',
       'override' => array(
-        'button' => 'Override',
+        'button' => 'Use default',
       ),
       'relationship' => 'none',
     ),
