@@ -1,3 +1,13 @@
 <?php
 
 include_once('activity_source.features.inc');
+
+/**
+ * Implementation of hook_views_api().
+ */
+function activity_source_views_api() {
+  return array(
+    'api' => '2.0',
+    'path' => drupal_get_path('module', 'activity_source') .'/views',
+  );
+}
