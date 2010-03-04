@@ -1054,17 +1054,35 @@ function _activity_source_views_default_views() {
   ));
   $handler->override_option('displays', array());
   $handler->override_option('sitename_title', 1);
-  $handler = $view->new_display('feed', 'Comments', 'feed_3');
+
+  $views[$view->name] = $view;
+
+  // Exported view: activity_feed_comments
+  $view = new view;
+  $view->name = 'activity_feed_comments';
+  $view->description = '';
+  $view->tag = '';
+  $view->view_php = '';
+  $view->base_table = 'comments';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+  $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('relationships', array(
+    'uid' => array(
+      'label' => 'User',
+      'required' => 1,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
+      'relationship' => 'none',
+    ),
     'nid' => array(
       'label' => 'Node',
       'required' => 1,
       'id' => 'nid',
       'table' => 'comments',
       'field' => 'nid',
-      'override' => array(
-        'button' => 'Use default',
-      ),
       'relationship' => 'none',
     ),
   ));
@@ -1084,8 +1102,8 @@ function _activity_source_views_default_views() {
         'help' => '',
         'trim' => 0,
         'max_length' => '',
-        'word_boundary' => 0,
-        'ellipsis' => 0,
+        'word_boundary' => 1,
+        'ellipsis' => 1,
         'strip_tags' => 0,
         'html' => 0,
       ),
@@ -1096,10 +1114,7 @@ function _activity_source_views_default_views() {
       'id' => 'authname',
       'table' => 'authmap',
       'field' => 'authname',
-      'relationship' => 'none',
-      'override' => array(
-        'button' => 'Override',
-      ),
+      'relationship' => 'uid',
     ),
     'site_info' => array(
       'label' => 'Site name',
@@ -1125,7 +1140,7 @@ function _activity_source_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'site_info' => 'site_name',
-      'exclude' => 1,
+      'exclude' => 0,
       'id' => 'site_info',
       'table' => 'views',
       'field' => 'site_info',
@@ -1155,7 +1170,7 @@ function _activity_source_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'site_info' => 'base_url',
-      'exclude' => 1,
+      'exclude' => 0,
       'id' => 'site_info_1',
       'table' => 'views',
       'field' => 'site_info',
@@ -1189,10 +1204,10 @@ function _activity_source_views_default_views() {
       'id' => 'uid',
       'table' => 'users',
       'field' => 'uid',
-      'relationship' => 'none',
+      'relationship' => 'uid',
     ),
-    'nothing_2' => array(
-      'label' => 'Linked site',
+    'nothing' => array(
+      'label' => 'Custom text',
       'alter' => array(
         'text' => '[site_info]',
         'make_link' => 1,
@@ -1214,7 +1229,7 @@ function _activity_source_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'exclude' => 1,
-      'id' => 'nothing_2',
+      'id' => 'nothing',
       'table' => 'views',
       'field' => 'nothing',
       'relationship' => 'none',
@@ -1225,7 +1240,7 @@ function _activity_source_views_default_views() {
         'alter_text' => 0,
         'text' => '',
         'make_link' => 0,
-        'path' => '[uid]',
+        'path' => '',
         'link_class' => '',
         'alt' => '',
         'prefix' => '',
@@ -1249,12 +1264,9 @@ function _activity_source_views_default_views() {
       'id' => 'name',
       'table' => 'users',
       'field' => 'name',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
+      'relationship' => 'uid',
     ),
-    'nothing_4' => array(
+    'nothing_1' => array(
       'label' => 'Linked user name',
       'alter' => array(
         'text' => '[name]',
@@ -1277,43 +1289,16 @@ function _activity_source_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'exclude' => 0,
-      'id' => 'nothing_4',
+      'id' => 'nothing_1',
       'table' => 'views',
       'field' => 'nothing',
       'relationship' => 'none',
     ),
     'title' => array(
-      'label' => 'Title',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'strip_tags' => 0,
-        'html' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'link_to_node' => 0,
-      'exclude' => 1,
       'id' => 'title',
       'table' => 'node',
       'field' => 'title',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
+      'relationship' => 'nid',
     ),
     'nid' => array(
       'label' => 'Full URL to node',
@@ -1343,10 +1328,7 @@ function _activity_source_views_default_views() {
       'id' => 'nid',
       'table' => 'node',
       'field' => 'nid',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-      'relationship' => 'none',
+      'relationship' => 'nid',
     ),
     'cid' => array(
       'label' => 'Full URL to comment',
@@ -1376,12 +1358,12 @@ function _activity_source_views_default_views() {
       'id' => 'cid',
       'table' => 'comments',
       'field' => 'cid',
-      'override' => array(
-        'button' => 'Use default',
-      ),
       'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
     ),
-    'nothing_3' => array(
+    'nothing_2' => array(
       'label' => 'Linked title',
       'alter' => array(
         'text' => '[title]',
@@ -1404,109 +1386,10 @@ function _activity_source_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'exclude' => 0,
-      'id' => 'nothing_3',
-      'table' => 'views',
-      'field' => 'nothing',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
-    'created' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'strip_tags' => 0,
-        'html' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'date_format' => 'custom',
-      'custom_date_format' => 'r',
-      'exclude' => 0,
-      'id' => 'created',
-      'table' => 'node',
-      'field' => 'created',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
-    'nothing' => array(
-      'label' => 'RSS Title',
-      'alter' => array(
-        'text' => '[nothing_4] commented on [nothing_3] on [nothing_2]',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'strip_tags' => 0,
-        'html' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'exclude' => 0,
-      'id' => 'nothing',
-      'table' => 'views',
-      'field' => 'nothing',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-      'relationship' => 'none',
-    ),
-    'nothing_1' => array(
-      'label' => 'Activity type',
-      'alter' => array(
-        'text' => 'commented',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'strip_tags' => 0,
-        'html' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'exclude' => 0,
-      'id' => 'nothing_1',
+      'id' => 'nothing_2',
       'table' => 'views',
       'field' => 'nothing',
       'relationship' => 'none',
-      'override' => array(
-        'button' => 'Use default',
-      ),
     ),
     'timestamp' => array(
       'label' => 'Post date',
@@ -1537,25 +1420,74 @@ function _activity_source_views_default_views() {
       'id' => 'timestamp',
       'table' => 'comments',
       'field' => 'timestamp',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-      'relationship' => 'nid',
+      'relationship' => 'none',
     ),
-  ));
-  $handler->override_option('sorts', array(
-    'timestamp' => array(
-      'order' => 'DESC',
-      'granularity' => 'second',
-      'id' => 'timestamp',
-      'table' => 'comments',
-      'field' => 'timestamp',
-      'override' => array(
-        'button' => 'Use default',
+    'nothing_3' => array(
+      'label' => 'RSS Title',
+      'alter' => array(
+        'text' => '[nothing_1] commented on [nothing_3] on [nothing_2]',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'strip_tags' => 0,
+        'html' => 0,
       ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'exclude' => 0,
+      'id' => 'nothing_3',
+      'table' => 'views',
+      'field' => 'nothing',
+      'relationship' => 'none',
+    ),
+    'nothing_4' => array(
+      'label' => 'Activity type',
+      'alter' => array(
+        'text' => 'commented',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'strip_tags' => 0,
+        'html' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'exclude' => 0,
+      'id' => 'nothing_4',
+      'table' => 'views',
+      'field' => 'nothing',
       'relationship' => 'none',
     ),
   ));
+  $handler->override_option('access', array(
+    'type' => 'none',
+  ));
+  $handler->override_option('cache', array(
+    'type' => 'none',
+  ));
+  $handler->override_option('title', 'New comments');
+  $handler = $view->new_display('feed', 'New comments', 'feed_1');
+  $handler->override_option('items_per_page', 20);
   $handler->override_option('style_plugin', 'rss_fields');
   $handler->override_option('style_options', array(
     'mission_description' => FALSE,
@@ -1563,8 +1495,8 @@ function _activity_source_views_default_views() {
       'feed_description' => '',
     ),
     'fields' => array(
-      'title' => 'nothing',
-      'description' => 'nothing_1',
+      'title' => 'nothing_3',
+      'description' => 'nothing_4',
       'link' => 'cid',
       'author' => 'authname',
       'dc:creator' => 'name',
@@ -1593,7 +1525,7 @@ function _activity_source_views_default_views() {
     'weight' => 0,
   ));
   $handler->override_option('displays', array());
-  $handler->override_option('sitename_title', 1);
+  $handler->override_option('sitename_title', FALSE);
 
   $views[$view->name] = $view;
 
