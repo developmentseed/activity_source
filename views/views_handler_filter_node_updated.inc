@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Detects whether a node has
- *
+ * Filters nodes on whether they have been changed or not. Could be rolled as
+ * a patch against Views.
  */
 class views_handler_filter_node_updated extends views_handler_filter_boolean_operator {
   /**
