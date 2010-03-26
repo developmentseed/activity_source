@@ -521,6 +521,7 @@ function _activity_source_views_default_views() {
     'title' => '',
     'description' => '',
     'weight' => 0,
+    'name' => 'navigation',
   ));
   $handler->override_option('displays', array());
   $handler->override_option('sitename_title', 1);
@@ -1051,6 +1052,7 @@ function _activity_source_views_default_views() {
     'title' => '',
     'description' => '',
     'weight' => 0,
+    'name' => 'navigation',
   ));
   $handler->override_option('displays', array());
   $handler->override_option('sitename_title', 1);
@@ -1523,6 +1525,7 @@ function _activity_source_views_default_views() {
     'title' => '',
     'description' => '',
     'weight' => 0,
+    'name' => 'navigation',
   ));
   $handler->override_option('displays', array());
   $handler->override_option('sitename_title', FALSE);
