@@ -10,11 +10,19 @@ function activity_source_views_data() {
  * Implementation of hook_views_data_alter().
  */
 function activity_source_views_data_alter(&$data) {
+  $data['node']['updated'] = array(
+    'title' => t('Node was updated'),
+    'help' => t('Filter on whether a node has been updated or not.'),
+    'filter' => array(
+      'handler' => 'views_handler_filter_node_updated',
+    ),
+  );
+
   // Expose site information, views patch submitted at
   // http://drupal.org/node/730752
   $data['views']['site_info'] = array(
     'title' => t('Site information'),
-    'help' => t('Basic information about this site like its name or the base URL.'),    
+    'help' => t('Basic information about this site like its name or the base URL.'),
     'field' => array(
       'handler' => 'views_handler_field_site_info',
     ),
@@ -90,6 +98,9 @@ function activity_source_views_handlers() {
     'handlers' => array(
       'views_handler_field_site_info' => array(
         'parent' => 'views_handler_field',
+      ),
+      'views_handler_filter_node_updated' => array(
+        'parent' => 'views_handler_filter_boolean_operator',
       ),
     ),
   );

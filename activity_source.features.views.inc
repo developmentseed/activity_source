@@ -999,18 +999,18 @@ function _activity_source_views_default_views() {
       ),
       'relationship' => 'none',
     ),
-    'timestamp' => array(
+    'updated' => array(
       'operator' => '=',
-      'value' => '',
+      'value' => '1',
       'group' => '0',
       'exposed' => FALSE,
       'expose' => array(
         'operator' => FALSE,
         'label' => '',
       ),
-      'id' => 'timestamp',
-      'table' => 'history_user',
-      'field' => 'timestamp',
+      'id' => 'updated',
+      'table' => 'node',
+      'field' => 'updated',
       'override' => array(
         'button' => 'Use default',
       ),
